@@ -56,6 +56,21 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000` and allow camera access. Models load from Google's hosted MediaPipe CDN at runtime, so nothing local is needed for the browser version.
 
+## Deploying to Vercel
+
+The browser version is configured as a static Vercel project. Vercel runs
+`npm run build` and publishes the generated `dist/` directory; the Python
+desktop app and its local models are not part of the deployment.
+
+1. Import this repository in Vercel.
+2. Leave the project root set to the repository root.
+3. Deploy. The settings in `vercel.json` select the build command and output
+   directory automatically.
+
+The deployed site uses HTTPS, which is required for browser camera access.
+Visitors still need to grant camera permission when prompted. MediaPipe's WASM
+runtime and browser models are downloaded from their existing public CDNs.
+
 ## Live debug HUD
 
 The Camera window always shows a small readout in the top-left corner:
